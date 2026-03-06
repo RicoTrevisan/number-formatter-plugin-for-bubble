@@ -195,3 +195,167 @@ Some of these (especially List Format, Plural Rules) could also work well as **c
 8. **Phase 8:** Update plugin metadata, demo page, documentation
 
 Each phase is independently shippable and testable.
+
+---
+
+## Phase 2: Date & Time Formatter — Implementation Plan
+
+### Overview
+
+Create a new element `📅 Date formatter` that wraps `Intl.DateTimeFormat`. This is the highest-value addition since Bubble's built-in date formatting is one of the platform's biggest pain points — no locale awareness, limited timezone support, and no granular control over which parts to display.
+
+### Pre-work: New element creation
+
+Pled may not support creating new elements from scratch locally. The safest approach:
+
+1. Create a blank element named `📅 Date formatter` in the Bubble plugin editor manually
+2. Run `pled pull` to get the new element's directory and auto-assigned key (e.g. `ABG`)
+3. Then edit all files locally and `pled push`
+
+If pled does support new elements via directory creation, we can skip step 1 — but verify first.
+
+### Element Configuration
+
+```
+src/elements/date-formatter-<KEY>/
+├── <KEY>.json       # Element metadata (fields, states, actions)
+├── initialize.js    # Empty
+├── update.js        # Main formatting logic
+├── preview.js       # Empty
+├── reset.js         # Empty
+├── headers.html     # Empty
+├── fields.txt       # Field listing
+└── actions/         # Empty
+```
+
+- `display`: `📅 Date formatter`
+- `category`: `visual elements`
+- `icon`: `ion-ios-calendar-outline`
+- `default_dim`: `{ "height": 10, "width": 10 }` (invisible)
+- `add_is_visible`: `true`
+
+### Fields
+
+All fields use the "none" option to mean "omit this part entirely". The `Intl.DateTimeFormat` API treats absent keys as "don't include", so any field set to `none` simply won't be added to the options object.
+
+**Important Intl constraint:** `dateStyle`/`timeStyle` cannot be combined with individual component fields (`weekday`, `year`, `month`, etc.). The update.js logic must handle two mutually exclusive modes:
+- **Preset mode:** use `dateStyle` and/or `timeStyle` (quick & easy)
+- **Custom mode:** use individual component fields (full control)
+
+We'll use a **Mode** dropdown to make this explicit in the UI.
+
+#### Input
+
+| Rank | Key | Caption | Editor | Default | Options | Optional | Value | Doc |
+|------|-----|---------|--------|---------|---------|----------|-------|-----|
+| 0 | | Date | DynamicValue | — | — | no | date | The date to format |
+| 1 | | Locale | DynamicValue | en-US | — | no | text | BCP 47 locale (e.g. en-US, ja-JP, de-DE) |
+| 2 | | Time zone | DynamicValue | — | — | yes | text | IANA timezone (e.g. America/New_York, Europe/Berlin). Leave empty for user's local timezone. |
+
+#### Mode
+
+| Rank | Key | Caption | Editor | Default | Options | Optional | Value | Doc |
+|------|-----|---------|--------|---------|---------|----------|-------|-----|
+| 3 | | — Preset Mode — | Label | — | — | — | — | — |
+| 4 | | Mode | Dropdown | preset | preset,custom | no | text | "preset" uses Date style / Time style. "custom" uses individual fields below. |
+| 5 | | Date style | Dropdown | medium | full,long,medium,short,none | yes | text | Preset date style. "full" = Thursday, March 6, 2026. "long" = March 6, 2026. "medium" = Mar 6, 2026. "short" = 3/6/26. "none" = omit date. |
+| 6 | | Time style | Dropdown | none | full,long,medium,short,none | yes | text | Preset time style. "full" = 6:43:25 AM GMT+1. "long" = 6:43:25 AM GMT+1. "medium" = 6:43:25 AM. "short" = 6:43 AM. "none" = omit time. |
+
+#### Custom Component Fields
+
+| Rank | Key | Caption | Editor | Default | Options | Optional | Value | Doc |
+|------|-----|---------|--------|---------|---------|----------|-------|-----|
+| 7 | | — Custom Mode — | Label | — | — | — | — | — |
+| 8 | | Weekday | Dropdown | none | long,short,narrow,none | yes | text | "long" = Thursday. "short" = Thu. "narrow" = T. |
+| 9 | | Year | Dropdown | none | numeric,2-digit,none | yes | text | "numeric" = 2026. "2-digit" = 26. |
+| 10 | | Month | Dropdown | none | numeric,2-digit,long,short,narrow,none | yes | text | "numeric" = 3. "2-digit" = 03. "long" = March. "short" = Mar. "narrow" = M. |
+| 11 | | Day | Dropdown | none | numeric,2-digit,none | yes | text | "numeric" = 6. "2-digit" = 06. |
+| 12 | | Hour | Dropdown | none | numeric,2-digit,none | yes | text | "numeric" = 6. "2-digit" = 06. |
+| 13 | | Minute | Dropdown | none | numeric,2-digit,none | yes | text | "numeric" = 43. "2-digit" = 43. |
+| 14 | | Second | Dropdown | none | numeric,2-digit,none | yes | text | "numeric" = 25. "2-digit" = 25. |
+| 15 | | Hour cycle | Dropdown | auto | auto,h11,h12,h23,h24 | yes | text | Clock type. "h12" = 12-hour with AM/PM. "h23" = 24-hour (0-23). "auto" = follow locale default. |
+
+#### Date Range
+
+| Rank | Key | Caption | Editor | Default | Options | Optional | Value | Doc |
+|------|-----|---------|--------|---------|---------|----------|-------|-----|
+| 16 | | — Date Range — | Label | — | — | — | — | — |
+| 17 | | End date | DynamicValue | — | — | yes | date | If provided, formats a date range using formatRange() (e.g. "Jan 5 – 10, 2026"). Uses same style settings as the main date. |
+
+#### Advanced
+
+| Rank | Key | Caption | Editor | Default | Options | Optional | Value | Doc |
+|------|-----|---------|--------|---------|---------|----------|-------|-----|
+| 18 | | — Advanced — | Label | — | — | — | — | — |
+| 19 | | Advanced options (JSON) | DynamicValue, long_text | — | — | yes | text | Raw JSON passed directly to Intl.DateTimeFormat. When set, ALL other options except locale are ignored. |
+| 20 | | Full reference: MDN Intl.DateTimeFormat() constructor | Label | — | — | — | — | — |
+
+### Output States
+
+| Key | Caption | Name | Value | Doc |
+|-----|---------|------|-------|-----|
+| | Formatted date | formatted_date | text | The formatted date string |
+| | Formatted range | formatted_range | text | The formatted date range string (empty if no end date provided) |
+| | Formatted parts (JSON) | formatted_parts | text | JSON from formatToParts() for custom rendering |
+| | Error message | error_message | text | Empty on success, error description on failure |
+
+### update.js Logic
+
+```
+try {
+    1. Read properties: date, locale, timeZone, mode, end_date, advanced_options
+    2. If advanced_options is set → parse JSON, use directly
+    3. Else if mode === "preset":
+        - Build options with dateStyle (if not "none") and timeStyle (if not "none")
+        - Add timeZone if provided
+    4. Else if mode === "custom":
+        - Build options from individual component fields (weekday, year, month, day, hour, minute, second)
+        - Skip any field set to "none"
+        - Add hourCycle if not "auto"
+        - Add timeZone if provided
+    5. Create formatter: new Intl.DateTimeFormat([locale, "en-US"], options)
+    6. Format: formatter.format(date)
+    7. If end_date provided: formatter.formatRange(date, end_date)
+    8. Publish states: formatted_date, formatted_range, formatted_parts, error_message=""
+catch (e) {
+    Publish empty strings + error_message = e.message
+}
+```
+
+### Key Edge Cases to Handle
+
+- **Bubble dates** arrive as JavaScript Date objects in `properties` — verify this works directly with `Intl.DateTimeFormat.format()` (it should, since it accepts Date objects)
+- **"none" values** — must NOT be passed to the Intl options object (absent key = omit that part)
+- **dateStyle/timeStyle vs components** — these are mutually exclusive in the Intl API; the Mode dropdown prevents mixing them, but the code should also guard against it
+- **Empty timezone** — if not provided, omit from options (browser uses local timezone by default)
+- **Invalid timezone string** — caught by try/catch, surfaces via error_message
+- **formatRange()** — only available in modern browsers; wrap in a secondary try/catch with a clear error if unavailable
+
+### Test Scenarios
+
+| Scenario | Input | Expected Output |
+|----------|-------|-----------------|
+| Preset date only | date: 2026-03-06, locale: en-US, dateStyle: full | "Friday, March 6, 2026" |
+| Preset date + time | date: 2026-03-06T06:43:00, locale: en-US, dateStyle: short, timeStyle: short | "3/6/26, 6:43 AM" |
+| Custom: month + year only | date: 2026-03-06, mode: custom, month: long, year: numeric | "March 2026" |
+| Custom: weekday only | date: 2026-03-06, mode: custom, weekday: long | "Friday" |
+| German locale | date: 2026-03-06, locale: de-DE, dateStyle: long | "6. März 2026" |
+| Japanese locale | date: 2026-03-06, locale: ja-JP, dateStyle: full | "2026年3月6日金曜日" |
+| Timezone conversion | date: 2026-03-06T06:43:00Z, locale: en-US, timeZone: America/New_York, timeStyle: short | "1:43 AM" |
+| Date range | date: 2026-01-05, end: 2026-01-10, dateStyle: medium | "Jan 5 – 10, 2026" |
+| 24-hour clock | date: 2026-03-06T18:30:00, mode: custom, hour: 2-digit, minute: 2-digit, hourCycle: h23 | "18:30" |
+| Advanced JSON override | advanced_options: {"dateStyle":"full","calendar":"persian"} | Persian calendar date |
+| Error: bad timezone | timeZone: "NotATimezone" | error_message: "Invalid time zone specified: NotATimezone" |
+
+### Implementation Steps
+
+1. Create blank `📅 Date formatter` element in Bubble plugin editor
+2. `pled pull` to get the new element directory and key
+3. Write `<KEY>.json` with all fields and states defined above
+4. Write `fields.txt` matching the field layout
+5. Write `update.js` with the formatting logic
+6. Leave `initialize.js`, `preview.js`, `reset.js`, `headers.html` empty
+7. `pled push --force`
+8. Test all scenarios from the test table above
+9. Update CHANGELOG.md, README.md
+10. Git commit and push

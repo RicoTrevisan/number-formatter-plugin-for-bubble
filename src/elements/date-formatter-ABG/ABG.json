@@ -1,0 +1,252 @@
+{
+  "actions": {},
+  "add_is_visible": true,
+  "category": "visual elements",
+  "default_dim": {
+    "height": 10,
+    "width": 10
+  },
+  "display": "📅 Date formatter",
+  "fields": {
+    "ABL": {
+      "caption": "Date",
+      "doc": "The date to format.",
+      "editor": "DynamicValue",
+      "name": "date",
+      "optional": false,
+      "rank": 0,
+      "value": "date"
+    },
+    "ABM": {
+      "caption": "Locale",
+      "default_val": "en-US",
+      "doc": "BCP 47 locale tag. e.g.: en-US, ja-JP, de-DE, pt-BR, ar-EG",
+      "editor": "DynamicValue",
+      "name": "locale",
+      "optional": false,
+      "rank": 1,
+      "value": "text"
+    },
+    "ABN": {
+      "caption": "Time zone",
+      "default_val": "",
+      "doc": "IANA timezone identifier. e.g.: America/New_York, Europe/Berlin, Asia/Tokyo. Leave empty for the user's local timezone.",
+      "editor": "DynamicValue",
+      "name": "timeZone",
+      "optional": true,
+      "rank": 2,
+      "value": "text"
+    },
+    "ABO": {
+      "caption": "— Mode —",
+      "editor": "Label",
+      "name": "mode_label",
+      "rank": 3
+    },
+    "ABP": {
+      "caption": "Mode",
+      "default_val": "preset",
+      "doc": "\"preset\" uses Date style / Time style for quick formatting. \"custom\" uses individual component fields (weekday, year, month, etc.) for full control. These two modes are mutually exclusive in the Intl API.",
+      "editor": "Dropdown",
+      "name": "mode",
+      "optional": false,
+      "options": "preset,custom",
+      "rank": 4,
+      "value": "text"
+    },
+    "ABQ": {
+      "caption": "Date style",
+      "default_val": "medium",
+      "doc": "Preset date style (only used in preset mode). \"full\" = Thursday, March 6, 2026. \"long\" = March 6, 2026. \"medium\" = Mar 6, 2026. \"short\" = 3/6/26. \"none\" = omit date portion.",
+      "editor": "Dropdown",
+      "name": "dateStyle",
+      "optional": true,
+      "options": "full,long,medium,short,none",
+      "rank": 5,
+      "value": "text"
+    },
+    "ABR": {
+      "caption": "Time style",
+      "default_val": "none",
+      "doc": "Preset time style (only used in preset mode). \"full\" = 6:43:25 AM Central European Standard Time. \"long\" = 6:43:25 AM GMT+1. \"medium\" = 6:43:25 AM. \"short\" = 6:43 AM. \"none\" = omit time portion.",
+      "editor": "Dropdown",
+      "name": "timeStyle",
+      "optional": true,
+      "options": "full,long,medium,short,none",
+      "rank": 6,
+      "value": "text"
+    },
+    "ABS": {
+      "caption": "— Custom Mode Fields —",
+      "editor": "Label",
+      "name": "custom_label",
+      "rank": 7
+    },
+    "ABT": {
+      "caption": "Weekday",
+      "default_val": "none",
+      "doc": "Only used in custom mode. \"long\" = Thursday. \"short\" = Thu. \"narrow\" = T. \"none\" = omit.",
+      "editor": "Dropdown",
+      "name": "weekday",
+      "optional": true,
+      "options": "long,short,narrow,none",
+      "rank": 8,
+      "value": "text"
+    },
+    "ABU": {
+      "caption": "Year",
+      "default_val": "none",
+      "doc": "Only used in custom mode. \"numeric\" = 2026. \"2-digit\" = 26. \"none\" = omit.",
+      "editor": "Dropdown",
+      "name": "year",
+      "optional": true,
+      "options": "numeric,2-digit,none",
+      "rank": 9,
+      "value": "text"
+    },
+    "ABV": {
+      "caption": "Month",
+      "default_val": "none",
+      "doc": "Only used in custom mode. \"numeric\" = 3. \"2-digit\" = 03. \"long\" = March. \"short\" = Mar. \"narrow\" = M. \"none\" = omit.",
+      "editor": "Dropdown",
+      "name": "month",
+      "optional": true,
+      "options": "numeric,2-digit,long,short,narrow,none",
+      "rank": 10,
+      "value": "text"
+    },
+    "ABW": {
+      "caption": "Day",
+      "default_val": "none",
+      "doc": "Only used in custom mode. \"numeric\" = 6. \"2-digit\" = 06. \"none\" = omit.",
+      "editor": "Dropdown",
+      "name": "day",
+      "optional": true,
+      "options": "numeric,2-digit,none",
+      "rank": 11,
+      "value": "text"
+    },
+    "ABX": {
+      "caption": "Hour",
+      "default_val": "none",
+      "doc": "Only used in custom mode. \"numeric\" = 6. \"2-digit\" = 06. \"none\" = omit.",
+      "editor": "Dropdown",
+      "name": "hour",
+      "optional": true,
+      "options": "numeric,2-digit,none",
+      "rank": 12,
+      "value": "text"
+    },
+    "ABY": {
+      "caption": "Minute",
+      "default_val": "none",
+      "doc": "Only used in custom mode. \"numeric\" = 43. \"2-digit\" = 43. \"none\" = omit.",
+      "editor": "Dropdown",
+      "name": "minute",
+      "optional": true,
+      "options": "numeric,2-digit,none",
+      "rank": 13,
+      "value": "text"
+    },
+    "ABZ": {
+      "caption": "Second",
+      "default_val": "none",
+      "doc": "Only used in custom mode. \"numeric\" = 25. \"2-digit\" = 25. \"none\" = omit.",
+      "editor": "Dropdown",
+      "name": "second",
+      "optional": true,
+      "options": "numeric,2-digit,none",
+      "rank": 14,
+      "value": "text"
+    },
+    "ACA": {
+      "caption": "Hour cycle",
+      "default_val": "auto",
+      "doc": "Only used in custom mode when Hour is set. \"h12\" = 12-hour clock with AM/PM. \"h23\" = 24-hour clock (0-23). \"h24\" = 24-hour clock (1-24). \"h11\" = 12-hour clock (0-11). \"auto\" = follow locale default.",
+      "editor": "Dropdown",
+      "name": "hourCycle",
+      "optional": true,
+      "options": "auto,h11,h12,h23,h24",
+      "rank": 15,
+      "value": "text"
+    },
+    "ACB": {
+      "caption": "— Date Range —",
+      "editor": "Label",
+      "name": "range_label",
+      "rank": 16
+    },
+    "ACC": {
+      "caption": "End date",
+      "default_val": "",
+      "doc": "If provided, formats a date range using formatRange(). e.g.: \"Jan 5 – 10, 2026\". Uses the same style settings as the main date.",
+      "editor": "DynamicValue",
+      "name": "end_date",
+      "optional": true,
+      "rank": 17,
+      "value": "date"
+    },
+    "ACD": {
+      "caption": "— Advanced —",
+      "editor": "Label",
+      "name": "advanced_label",
+      "rank": 18
+    },
+    "ACE": {
+      "caption": "Advanced options (JSON)",
+      "default_val": "",
+      "doc": "Raw JSON passed directly to Intl.DateTimeFormat constructor. When set, ALL other options except locale are ignored. Must be valid JSON.",
+      "editor": "DynamicValue",
+      "long_text": true,
+      "name": "advanced_options",
+      "optional": true,
+      "rank": 19,
+      "value": "text"
+    },
+    "ACF": {
+      "caption": "Full reference: MDN Intl.DateTimeFormat() constructor",
+      "editor": "Label",
+      "name": "reference_link",
+      "rank": 20
+    }
+  },
+  "icon": "ion-ios-calendar-outline",
+  "states": {
+    "ABH": {
+      "caption": "Formatted date",
+      "doc": "The formatted date string.",
+      "initialization_code": {
+        "fn": "function(properties, context) {\n\n\n\n}"
+      },
+      "name": "formatted_date",
+      "value": "text"
+    },
+    "ABI": {
+      "caption": "Formatted range",
+      "doc": "The formatted date range string. Empty if no end date is provided.",
+      "initialization_code": {
+        "fn": "function(properties, context) {\n\n\n\n}"
+      },
+      "name": "formatted_range",
+      "value": "text"
+    },
+    "ABJ": {
+      "caption": "Formatted parts (JSON)",
+      "doc": "JSON output from formatToParts() for custom rendering. Each part has a 'type' and 'value'.",
+      "initialization_code": {
+        "fn": "function(properties, context) {\n\n\n\n}"
+      },
+      "name": "formatted_parts",
+      "value": "text"
+    },
+    "ABK": {
+      "caption": "Error message",
+      "doc": "Empty when formatting succeeds. Contains an error description if formatting fails (e.g., invalid timezone, bad JSON in advanced options).",
+      "initialization_code": {
+        "fn": "function(properties, context) {\n\n\n\n}"
+      },
+      "name": "error_message",
+      "value": "text"
+    }
+  }
+}
