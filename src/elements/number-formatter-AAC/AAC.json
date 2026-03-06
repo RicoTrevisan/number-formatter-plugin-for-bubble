@@ -1,0 +1,228 @@
+{
+  "actions": {},
+  "add_is_visible": true,
+  "category": "visual elements",
+  "default_dim": {
+    "height": 10,
+    "width": 10
+  },
+  "display": "🤌 Number formatter",
+  "fields": {
+    "AAE": {
+      "caption": "Number to format",
+      "doc": "The number to format.",
+      "editor": "DynamicValue",
+      "name": "number",
+      "optional": false,
+      "rank": 0,
+      "value": "number"
+    },
+    "AAI": {
+      "caption": "Locale",
+      "default_val": "en-US",
+      "doc": "The locale to use for formatting. e.g.: en-US, de-DE, pt-BR, ja-JP",
+      "editor": "DynamicValue",
+      "name": "locale",
+      "optional": false,
+      "rank": 1,
+      "value": "text"
+    },
+    "AAJ": {
+      "caption": "Compact display",
+      "default_val": "short",
+      "doc": "Only used when notation is \"compact\". \"short\" (1.2K), \"long\" (1.2 thousand).",
+      "editor": "Dropdown",
+      "name": "compactDisplay",
+      "optional": true,
+      "options": "short,long",
+      "rank": 5,
+      "value": "text"
+    },
+    "AAN": {
+      "caption": "— Advanced —",
+      "editor": "Label",
+      "name": "options",
+      "rank": 15
+    },
+    "AAO": {
+      "caption": "Advanced options (JSON)",
+      "default_val": "",
+      "doc": "Direct access to the Intl.NumberFormat options object as JSON. When provided, ALL other options above (except locale) are ignored. Must be valid JSON.",
+      "editor": "DynamicValue",
+      "long_text": true,
+      "name": "advanced_options",
+      "optional": true,
+      "rank": 16,
+      "value": "text"
+    },
+    "AAP": {
+      "caption": "example: { \"style\": \"currency\", \"currency\": \"EUR\", \"currencyDisplay\": \"name\" }",
+      "editor": "Label",
+      "name": "advanced_options_info",
+      "rank": 17
+    },
+    "AAQ": {
+      "caption": "Full reference: MDN Intl.NumberFormat() constructor",
+      "editor": "Label",
+      "name": "link",
+      "rank": 18
+    },
+    "AAR": {
+      "caption": "— Formatting —",
+      "editor": "Label",
+      "name": "formatting_label",
+      "rank": 2
+    },
+    "AAS": {
+      "caption": "Style",
+      "default_val": "decimal",
+      "doc": "The formatting style. \"decimal\" for plain numbers, \"currency\" for money, \"percent\" for percentages, \"unit\" for measurements.",
+      "editor": "Dropdown",
+      "name": "style",
+      "optional": false,
+      "options": "decimal,currency,percent,unit",
+      "rank": 3,
+      "value": "text"
+    },
+    "AAT": {
+      "caption": "Notation",
+      "default_val": "standard",
+      "doc": "\"standard\" (1234), \"compact\" (1.2K), \"scientific\" (1.234E3), \"engineering\" (1.234E3).",
+      "editor": "Dropdown",
+      "name": "notation",
+      "optional": false,
+      "options": "standard,compact,scientific,engineering",
+      "rank": 4,
+      "value": "text"
+    },
+    "AAU": {
+      "caption": "Currency code",
+      "default_val": "",
+      "doc": "ISO 4217 currency code. Required when style is \"currency\". e.g.: USD, EUR, GBP, JPY, BRL",
+      "editor": "DynamicValue",
+      "name": "currency",
+      "optional": true,
+      "rank": 6,
+      "value": "text"
+    },
+    "AAV": {
+      "caption": "Currency display",
+      "default_val": "symbol",
+      "doc": "How to display the currency. \"symbol\" ($), \"narrowSymbol\" ($), \"code\" (USD), \"name\" (US dollars).",
+      "editor": "Dropdown",
+      "name": "currencyDisplay",
+      "optional": true,
+      "options": "symbol,narrowSymbol,code,name",
+      "rank": 7,
+      "value": "text"
+    },
+    "AAW": {
+      "caption": "Unit",
+      "default_val": "",
+      "doc": "The unit to use when style is \"unit\". e.g.: kilometer-per-hour, liter, celsius, mile, byte, kilogram, percent. See MDN for full list.",
+      "editor": "DynamicValue",
+      "name": "unit",
+      "optional": true,
+      "rank": 8,
+      "value": "text"
+    },
+    "AAX": {
+      "caption": "Unit display",
+      "default_val": "short",
+      "doc": "How to display the unit. \"long\" (16 litres), \"short\" (16 l), \"narrow\" (16l).",
+      "editor": "Dropdown",
+      "name": "unitDisplay",
+      "optional": true,
+      "options": "long,short,narrow",
+      "rank": 9,
+      "value": "text"
+    },
+    "AAY": {
+      "caption": "— Precision —",
+      "editor": "Label",
+      "name": "precision_label",
+      "rank": 10
+    },
+    "AAZ": {
+      "caption": "Minimum fraction digits",
+      "default_val": "",
+      "doc": "Minimum number of decimal places. e.g.: 2 means 1 → 1.00",
+      "editor": "DynamicValue",
+      "name": "minimumFractionDigits",
+      "optional": true,
+      "rank": 11,
+      "value": "number"
+    },
+    "ABA": {
+      "caption": "Maximum fraction digits",
+      "default_val": "",
+      "doc": "Maximum number of decimal places. e.g.: 2 means 1.2345 → 1.23",
+      "editor": "DynamicValue",
+      "name": "maximumFractionDigits",
+      "optional": true,
+      "rank": 12,
+      "value": "number"
+    },
+    "ABB": {
+      "caption": "Use grouping (thousands separator)",
+      "default_val": "auto",
+      "doc": "Whether to use grouping separators (e.g., commas in 1,000,000). \"auto\" follows locale, \"always\" forces it, \"false\" disables it.",
+      "editor": "Dropdown",
+      "name": "useGrouping",
+      "optional": true,
+      "options": "auto,always,false",
+      "rank": 13,
+      "value": "text"
+    },
+    "ABC": {
+      "caption": "Sign display",
+      "default_val": "auto",
+      "doc": "When to show the +/- sign. \"auto\" (only negative), \"always\" (+1, -1), \"exceptZero\" (+1, -1, 0), \"negative\" (-1 only), \"never\".",
+      "editor": "Dropdown",
+      "name": "signDisplay",
+      "optional": true,
+      "options": "auto,always,exceptZero,negative,never",
+      "rank": 14,
+      "value": "text"
+    }
+  },
+  "icon": "ion-ios-ionic-outline",
+  "states": {
+    "AAD": {
+      "caption": "Compacted number",
+      "doc": "Legacy: the number compacted via Intl.NumberFormat. Same as 'Formatted number'.",
+      "initialization_code": {
+        "fn": "function(properties, context) {\n\n\n\n}"
+      },
+      "name": "compacted_number",
+      "value": "text"
+    },
+    "ABD": {
+      "caption": "Formatted number",
+      "doc": "The number formatted according to the selected style, notation, and locale.",
+      "initialization_code": {
+        "fn": "function(properties, context) {\n\n\n\n}"
+      },
+      "name": "formatted_number",
+      "value": "text"
+    },
+    "ABE": {
+      "caption": "Formatted parts (JSON)",
+      "doc": "The formatToParts() output as a JSON string. Each part has a 'type' and 'value'. Useful for custom rendering.",
+      "initialization_code": {
+        "fn": "function(properties, context) {\n\n\n\n}"
+      },
+      "name": "formatted_parts",
+      "value": "text"
+    },
+    "ABF": {
+      "caption": "Error message",
+      "doc": "Empty when formatting succeeds. Contains an error message if formatting fails (e.g., invalid currency code, bad JSON in advanced options).",
+      "initialization_code": {
+        "fn": "function(properties, context) {\n\n\n\n}"
+      },
+      "name": "error_message",
+      "value": "text"
+    }
+  }
+}

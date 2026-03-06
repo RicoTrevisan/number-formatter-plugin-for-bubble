@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "plugin_api_version": "4",
+    "use_jquery": true
+  },
+  "human": "🤌 Number formatter",
+  "meta_data": {
+    "categories": {
+      "0": "data (things)"
+    },
+    "data_tracked": false,
+    "data_tracked_description": null,
+    "demo_page": "https://nocode-to-knowcode.bubbleapps.io/version-test/formatter",
+    "description": "Format numbers with full locale support using the browser's built-in Intl.NumberFormat API. No external libraries needed.\n\n✅ Currency formatting ($1,234.56 / 1.234,56 €)\n✅ Compact notation (1.2M, 3.5K)\n✅ Percentages (85%)\n✅ Units (100 km/h, 25°C, 3 liters)\n✅ Precision control (min/max decimal places)\n✅ Sign display (+42, -42)\n✅ Thousands separator control\n✅ Scientific & engineering notation\n✅ Error handling with error state output\n✅ formatToParts() JSON output for custom rendering\n✅ Advanced JSON options for full Intl.NumberFormat access\n\ndemo: https://nocode-to-knowcode.bubbleapps.io/version-test/formatter\nforum: https://forum.bubble.io/t/number-formatter-plugin/241249",
+    "designed_for": "both",
+    "image": "//s3.amazonaws.com/appforest_uf/f1673557349564x915893650478546000/Miroodles%20-%20Sticker.png",
+    "license": "open_source",
+    "link": "https://forum.bubble.io/t/number-formatter-plugin/241249",
+    "name": "🤌 Number formatter",
+    "plugin_instructions": "1. Drop the 🤌 Number formatter element on your page (it's invisible)\n2. Set the number, locale, and formatting style (decimal, currency, percent, or unit)\n3. Use the \"Formatted number\" output state to display the result\n\nFor currency: set Style to \"currency\" and provide a Currency code (e.g. USD, EUR)\nFor units: set Style to \"unit\" and provide a Unit (e.g. kilometer-per-hour, celsius)\nFor compact: set Notation to \"compact\" (turns 1234567 into 1.2M)\n\nTip: use the Advanced options field with raw JSON for full Intl.NumberFormat control.",
+    "sa_node_version": 18
+  }
+}

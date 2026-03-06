@@ -1,0 +1,5 @@
+.envrc
+.src.json
+lib/node_modules
+lib/dist*
+dist*
