@@ -3,3 +3,6 @@
 lib/node_modules
 lib/dist*
 dist*
+node_modules/
+test-results/
+playwright-report/

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Bubble formatter callback tests</title>
+<body>
+<script type="module">
+import { loadCallbacks, createHarness } from '/node_modules/@rico/bubble-element-test-harness/src/index.js';
+
+// These invisible formatters consume no canvas methods, jQuery, or runtime bundle.
+// Load the actual decoded bodies, including the supplied empty initialize/reset.
+const callbacks = Object.fromEntries(await Promise.all([
+  ['number', 'number-formatter-AAC'], ['date', 'date-formatter-ABG'],
+].map(async ([kind, directory]) => {
+  const base = `/src/elements/${directory}/`;
+  return [kind, await loadCallbacks({
+    initialize: base + 'initialize.js',
+    update: base + 'update.js',
+    reset: base + 'reset.js',
+  })];
+})));
+
+window.makeHarness = kind => {
+  const canvas = document.createElement('div');
+  document.body.append(canvas);
+  const h = createHarness({ callbacks: callbacks[kind], canvas, context: {} });
+  h.initialize();
+  return h;
+};
+window.ready = true;
+</script>
+</body>
+</html>
