@@ -123,6 +123,14 @@ If formatting fails (e.g. missing currency code when style is `currency`, invali
 
 You can use the Error message state to conditionally show a fallback or debug the issue.
 
+## Local development tests
+
+Both Number Formatter and Date Formatter have harness-backed browser regressions
+in Chromium, Firefox and WebKit. Use Node from `.node-version`, then run `npm ci`,
+`npx playwright install --with-deps chromium firefox webkit`, and `npm test` from
+the repository root. No production build is required. See [test documentation](tests/README.md)
+for coverage, shared-package provenance and remaining real-Bubble checks.
+
 ## Links
 
 - **Demo:** https://nocode-to-knowcode.bubbleapps.io/version-test/formatter
